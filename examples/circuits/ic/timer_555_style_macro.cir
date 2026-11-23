@@ -1,0 +1,14 @@
+.title 555-style timer macro block (hysteretic switch abstraction)
+.subckt TIMER555 VCC TIMING OUT
+RPU VCC OUT 10k
+SDIS TIMING 0 TIMING 0 SWDIS
+SOUT OUT 0 TIMING 0 SWOUT
+.ends TIMER555
+VCC vcc 0 DC 5
+RCHARGE vcc timing 330k
+CTIMING timing 0 10n
+XU1 vcc timing out TIMER555
+.model SWDIS SW (RON=220k ROFF=1Meg VT=2.8 VH=0.8)
+.model SWOUT SW (RON=100 ROFF=1Meg VT=2.8 VH=0.8)
+.tran 2u 40m
+.end
