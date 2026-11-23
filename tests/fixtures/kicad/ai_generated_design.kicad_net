@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design><source>complex_features.kicad_sch</source><date>2026-11-21</date><tool>eeschema (KiCad 9)</tool><sheets><sheet number="1" name="/"><tstamps>ROOT</tstamps></sheet><sheet number="2" name="/Power"><tstamps>CHILD</tstamps></sheet></sheets></design>
+  <components>
+    <comp ref="R1"><value>4.7k</value><libsource lib="Device" part="R"/><property name="Tolerance" value="5%"/><footprint>R_0603</footprint><sheetpath names="/" tstamps="ROOT"/></comp>
+    <comp ref="C1"><value>10u</value><libsource lib="Device" part="C"/><sheetpath names="/" tstamps="ROOT"/></comp>
+    <comp ref="D1"><value>LED</value><libsource lib="Device" part="D"/><sheetpath names="/" tstamps="ROOT"/></comp>
+    <comp ref="Q1"><value>Q_NPN_BCE</value><libsource lib="Transistor_BJT" part="Q_NPN_BCE"/><sheetpath names="/Power" tstamps="CHILD"/></comp>
+    <comp ref="M1"><value>Q_NMOS_GDS</value><libsource lib="Transistor_FET" part="Q_NMOS_GDS"/><sheetpath names="/Power" tstamps="CHILD"/></comp>
+    <comp ref="U1"><value>LM358</value><libsource lib="Amplifier_Operational" part="LM358"/><sheetpath names="/Power" tstamps="CHILD"/></comp>
+    <comp ref="XU2"><value>CustomSymbol</value><libsource lib="User" part="UnknownSymbol"/><sheetpath names="/Power" tstamps="CHILD"/></comp>
+  </components>
+  <libparts>
+    <libpart lib="Device" part="R"><pins><pin num="1" name="~" type="passive"/><pin num="2" name="~" type="passive"/></pins></libpart>
+    <libpart lib="Device" part="C"><pins><pin num="1" name="~" type="passive"/><pin num="2" name="~" type="passive"/></pins></libpart>
+    <libpart lib="Device" part="D"><pins><pin num="1" name="A" type="passive"/><pin num="2" name="K" type="passive"/></pins></libpart>
+    <libpart lib="Transistor_BJT" part="Q_NPN_BCE"><pins><pin num="1" name="B" type="input"/><pin num="2" name="C" type="passive"/><pin num="3" name="E" type="passive"/></pins></libpart>
+    <libpart lib="Transistor_FET" part="Q_NMOS_GDS"><pins><pin num="1" name="G" type="input"/><pin num="2" name="D" type="passive"/><pin num="3" name="S" type="passive"/><pin num="4" name="B" type="passive"/></pins></libpart>
+    <libpart lib="Amplifier_Operational" part="LM358"><pins><pin num="1" name="OUT" type="output"/><pin num="2" name="IN-" type="input"/><pin num="3" name="IN+" type="input"/><pin num="4" name="V-" type="power_in"/><pin num="8" name="V+" type="power_in"/><pin num="6" name="NC6" type="input"/><pin num="7" name="NC7" type="output"/></pins></libpart>
+  </libparts>
+  <nets>
+    <net code="1" name="/Main/IN"><node ref="R1" pin="1" pinfunction="~" pintype="passive"/></net>
+    <net code="2" name="/Main/OUT"><node ref="R1" pin="2" pinfunction="~" pintype="passive"/><node ref="C1" pin="1" pinfunction="~" pintype="passive"/><node ref="D1" pin="1" pinfunction="A" pintype="passive"/><node ref="U1" pin="1" pinfunction="OUT" pintype="output"/></net>
+    <net code="3" name="GND"><node ref="C1" pin="2" pinfunction="~" pintype="passive"/><node ref="Q1" pin="3" pinfunction="E" pintype="passive"/><node ref="M1" pin="3" pinfunction="S" pintype="passive"/><node ref="M1" pin="4" pinfunction="B" pintype="passive"/><node ref="U1" pin="4" pinfunction="V-" pintype="power_in"/></net>
+    <net code="4" name="/Power/BASE"><node ref="Q1" pin="1" pinfunction="B" pintype="input"/></net>
+    <net code="5" name="/Power/COLLECTOR"><node ref="Q1" pin="2" pinfunction="C" pintype="passive"/><node ref="M1" pin="2" pinfunction="D" pintype="passive"/></net>
+    <net code="6" name="/Power/GATE"><node ref="M1" pin="1" pinfunction="G" pintype="input"/></net>
+    <net code="7" name="/GLOBAL/CTRL"><node ref="U1" pin="2" pinfunction="IN-" pintype="input"/></net>
+    <net code="8" name="/Power/VCC"><node ref="U1" pin="3" pinfunction="IN+" pintype="input"/><node ref="U1" pin="8" pinfunction="V+" pintype="power_in"/></net>
+    <net code="9" name="/Main/IN"><node ref="XU2" pin="1" pinfunction="P1" pintype="passive"/></net>
+  </nets>
+  <no_connects><no_connect><node ref="D1" pin="2"/></no_connect></no_connects>
+</export>
