@@ -1,0 +1,378 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cirkreety.org/schemas/circuit.schema.json",
+  "title": "CirKreetyCircuit",
+  "description": "Versioned, normalized circuit-extraction interchange document. Connectivity records reflect explicit source mappings; this schema does not certify electrical correctness.",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "source",
+    "components",
+    "nets",
+    "unconnected_pins",
+    "validation",
+    "provenance",
+    "ports",
+    "labels",
+    "wires",
+    "models",
+    "parameters",
+    "subcircuits",
+    "expressions",
+    "hierarchy",
+    "directives"
+  ],
+  "properties": {
+    "schema": {
+      "const": "CirKreetyCircuit"
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "format",
+        "filename"
+      ],
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "original_schematic": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([a-fA-F0-9]{64})?$"
+        },
+        "variant": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kicad_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_schematic_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([a-fA-F0-9]{64})?$"
+        },
+        "netlist_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([a-fA-F0-9]{64})?$"
+        }
+      },
+      "additionalProperties": true
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component"
+      }
+    },
+    "nets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/net"
+      }
+    },
+    "unconnected_pins": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/pin"
+      }
+    },
+    "models": {
+      "type": "object"
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "hierarchy": {
+      "type": "array"
+    },
+    "directives": {
+      "type": "array"
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "status",
+        "errors",
+        "warnings",
+        "electrical_design_assessed"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        "connectivity_status": {
+          "enum": [
+            "complete",
+            "partial",
+            "invalid",
+            "unknown"
+          ]
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "electrical_design_assessed": {
+          "const": false
+        }
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "parser",
+        "connectivity_basis"
+      ],
+      "additionalProperties": true
+    },
+    "ports": {
+      "type": "array"
+    },
+    "labels": {
+      "type": "array"
+    },
+    "wires": {
+      "type": "array"
+    },
+    "subcircuits": {
+      "type": "object"
+    },
+    "expressions": {
+      "type": "array"
+    }
+  },
+  "$defs": {
+    "pin": {
+      "type": "object",
+      "required": [
+        "number",
+        "name",
+        "connectivity_status"
+      ],
+      "properties": {
+        "number": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "net_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "net_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "connectivity_status": {
+          "enum": [
+            "connected",
+            "no_connect",
+            "unconnected",
+            "unknown"
+          ]
+        },
+        "source_evidence": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "component": {
+      "type": "object",
+      "required": [
+        "id",
+        "reference",
+        "symbol_type",
+        "value",
+        "value_raw",
+        "library_id",
+        "properties",
+        "pins",
+        "extraction_status",
+        "value_normalized"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "symbol_type": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "string",
+            "number",
+            "null"
+          ]
+        },
+        "value_raw": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "library_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "properties": {
+          "type": "object"
+        },
+        "footprint": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "datasheet": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pins": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/pin"
+          }
+        },
+        "source_references": {
+          "type": "object"
+        },
+        "extraction_status": {
+          "type": "string"
+        },
+        "value_normalized": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "net": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "aliases",
+        "connections",
+        "reference_class"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "connections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "reference",
+              "pin"
+            ],
+            "properties": {
+              "reference": {
+                "type": "string"
+              },
+              "pin": {
+                "type": "string"
+              },
+              "pin_name": {
+                "type": "string"
+              },
+              "source_evidence": {
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "reference_class": {
+          "enum": [
+            "ground",
+            "power_or_reference",
+            "signal",
+            "unknown"
+          ]
+        },
+        "hierarchy": {
+          "type": "array"
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
