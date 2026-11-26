@@ -1,14 +1,23 @@
+
 cff-version: 1.2.0
-message: "Please cite CirKreet when using it in academic work or teaching material."
-title: "CirKreet: A Python toolkit for learning and analysing electronic circuits"
-version: 0.2.0
+message: "If you use CirKreet in your
+research, please cite it as below."
+title: "CirKreet: Python-Based
+Electronic Circuit Analysis and 
+Review Framework"
+authors:
+  - family-names: "Shrestha"
+    given-names: "Nirwan"
+version: "0.2.0"
 type: software
-repository-code: "https://github.com/nirwan701/cirkreet"
-url: "https://github.com/nirwan701/cirkreet"
+repository-code:
+"https://github.com/nirwan701
+/cirkreet"
+abstract: "A Python-based electronic
+circuit analysis and review framework
+with unified Circuit Intermediate
+Representation (CircuitIR),
+SPICE-compatible workflows,
+simulation, and extensible
+engineering checks."
 license: MIT
-keywords:
-  - circuit analysis
-  - electronics education
-  - modified nodal analysis
-  - SPICE
-  - KiCad
