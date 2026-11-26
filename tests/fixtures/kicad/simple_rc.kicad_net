@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="E">
+  <design><source>simple_rc.kicad_sch</source><date>2026-11-21</date><tool>eeschema</tool><sheets><sheet number="1" name="/"><tstamps>ROOT</tstamps></sheet></sheets></design>
+  <components>
+    <comp ref="R1"><value>10k</value><footprint>Resistor_SMD:R_0603</footprint><datasheet>https://example.invalid/r</datasheet><libsource lib="Device" part="R"/><property name="Tolerance" value="1%"/><sheetpath names="/" tstamps="ROOT"/><tstamps>R1_UUID</tstamps></comp>
+    <comp ref="C1"><value>100n</value><libsource lib="Device" part="C"/><sheetpath names="/" tstamps="ROOT"/><tstamps>C1_UUID</tstamps></comp>
+  </components>
+  <libparts>
+    <libpart lib="Device" part="R"><description>Resistor</description><pins><pin num="1" name="~" type="passive"/><pin num="2" name="~" type="passive"/></pins></libpart>
+    <libpart lib="Device" part="C"><description>Capacitor</description><pins><pin num="1" name="~" type="passive"/><pin num="2" name="~" type="passive"/></pins></libpart>
+  </libparts>
+  <nets>
+    <net code="1" name="/IN"><node ref="R1" pin="1" pinfunction="~" pintype="passive"/></net>
+    <net code="2" name="/OUT"><node ref="R1" pin="2" pinfunction="~" pintype="passive"/><node ref="C1" pin="1" pinfunction="~" pintype="passive"/></net>
+    <net code="3" name="GND"><node ref="C1" pin="2" pinfunction="~" pintype="passive"/></net>
+  </nets>
+</export>

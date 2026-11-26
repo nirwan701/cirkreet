@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nirwan701/cirkreet/schemas/analysis_ir.schema.json",
+  "title": "AnalysisIR",
+  "type": "object",
+  "required": [
+    "schema",
+    "schema_version",
+    "analysis_id",
+    "circuit_id",
+    "analyses",
+    "analysis_configuration",
+    "source_analysis_configuration",
+    "simulation_options",
+    "outputs"
+  ],
+  "properties": {
+    "schema": {"const": "AnalysisIR"},
+    "schema_version": {"const": "1.0.0"},
+    "analysis_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "circuit_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "analyses": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "dc_operating_point",
+          "dc_sweep",
+          "ac_sweep",
+          "transient",
+          "frequency_analysis",
+          "transfer_function",
+          "state_space"
+        ]
+      }
+    },
+    "analysis_configuration": {"type": "object"},
+    "source_analysis_configuration": {"type": "object"},
+    "simulation_options": {"type": "object"},
+    "outputs": {"type": "object"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,12 @@
+.title hierarchical RC filter
+.param RVAL=1k
+.model DTEST D(IS=1e-14 N=1.2)
+.subckt RC IN OUT
+R1 IN OUT {RVAL}
+C1 OUT 0 10u
+.ends RC
+V1 IN 0 DC 1
+X1 IN OUT RC
+D1 OUT 0 DTEST
+.op
+.end

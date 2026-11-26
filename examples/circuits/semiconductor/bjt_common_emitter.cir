@@ -1,0 +1,15 @@
+.title NPN common-emitter amplifier
+VCC vcc 0 DC 5
+VIN in 0 DC 0 PULSE(-0.01 0.01 1m 10u 10u 2m 4m) AC 1
+RB1 vcc b 47k
+RB2 b 0 10k
+RC vcc c 1k
+RE e 0 100
+CIN in b 10u
+CE e 0 100u
+Q1 c b e QN
+.model QN NPN (IS=1e-15 BF=100 BR=1 VAF=100 CJE=2p CJC=1p TF=1n)
+.circhecker OUTPUT=c
+.ac dec 30 10 100k
+.tran 20u 12m
+.end

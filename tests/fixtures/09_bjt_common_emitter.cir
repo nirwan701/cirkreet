@@ -1,0 +1,13 @@
+.title NPN common-emitter amplifier bias and small-signal response
+VCC vcc 0 DC 5
+VIN in 0 DC 0 AC 1m
+RB1 vcc b 47k
+RB2 b 0 10k
+RC vcc c 1k
+RE e 0 100
+CIN in b 10u
+CE e 0 100u
+Q1 c b e QN
+.model QN NPN (IS=1e-15 BF=100 BR=1 VAF=100 CJE=2p CJC=1p TF=1n)
+.ac dec 24 10 100k
+.end

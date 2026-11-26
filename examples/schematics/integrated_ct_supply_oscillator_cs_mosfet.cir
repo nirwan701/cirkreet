@@ -1,0 +1,61 @@
+.title Integrated centre-tapped supply, shunt regulator, relaxation oscillator and NMOS common-source amplifier
+
+* CENTRE-TAPPED TRANSFORMER SECONDARY (ideal source abstraction)
+* Two 12 Vrms half-windings, 50 Hz, 180 degrees apart; centre tap is node 0.
+* Starting at the secondary peaks gives the DC/AC bias analyses a powered state.
+VSEC_A sec_a 0 SIN(0 16.9706 50 0 0 90)
+VSEC_B sec_b 0 SIN(0 16.9706 50 0 0 270)
+RSA sec_a rect_a 2
+RSB sec_b rect_b 2
+
+* 1) CENTRE-TAPPED FULL-WAVE RECTIFIER
+D1 rect_a rect_raw DRECT
+D2 rect_b rect_raw DRECT
+.model DRECT D (IS=1e-14 N=1.2)
+
+* 2) LOW-PASS RESERVOIR FILTER (100 Hz ripple after full-wave rectification)
+Cbulk rect_raw 0 2200u
+Rbleed rect_raw 0 100k
+
+* 3) ZENER SHUNT REGULATOR (5.1 V educational reverse-breakdown model)
+Rseries rect_raw vreg 680
+DZ 0 vreg DZ51
+.model DZ51 D (IS=1e-12 N=1 BV=5.1 RBV=8)
+Rload vreg 0 1k
+Creg vreg 0 470u
+
+* 4) RC RELAXATION OSCILLATOR (hysteretic voltage-controlled switches)
+* Timing capacitor charges through Rcharge, then Sdis discharges it.
+* Sout and Rosc_pullup form the complementary logic-level oscillator output.
+Rcharge vreg osc_cap 330k
+Cosc osc_cap 0 10n
+Sdis osc_cap 0 osc_cap 0 SWDIS
+Rosc_pullup vreg osc_out 10k
+Sout osc_out 0 osc_cap 0 SWOUT
+.model SWDIS SW (RON=220k ROFF=1Meg VT=2.8 VH=0.8)
+.model SWOUT SW (RON=100 ROFF=1Meg VT=2.8 VH=0.8)
+
+* 5) NMOS COMMON-SOURCE AMPLIFIER
+* Oscillator signal is weakly AC-coupled to the gate; divider establishes bias.
+Rdrive osc_out drive 470k
+Cdrive drive gate 220n
+Rgate_top vreg gate 100k
+Rgate_bottom gate 0 100k
+RD vreg drain 2.2k
+RS source 0 470
+M1 drain gate source source MN W=10u L=1u
+.model MN NMOS (VTO=1.2 KP=300u LAMBDA=0.01 CGS=10p CGD=5p)
+Cout drain amp_out 10u
+Rout amp_out 0 10k
+
+* Small-signal test port used only for CirKreety's AC sweep.
+* In transient analysis VTEST is a 0 V DC source; the oscillator drives the amplifier.
+VTEST ac_test 0 DC 0 AC 1
+Ctest ac_test gate 220n
+
+* CirKreety chooses vreg for the DC sweep, and amp_out for the AC test response.
+.circhecker OUTPUT=vreg AC_INPUT=ac_test AC_OUTPUT=amp_out
+.dc VSEC_A 8 20 0.5
+.ac dec 100 10 100k
+.tran 10u 60m
+.end
