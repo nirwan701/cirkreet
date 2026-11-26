@@ -1,7 +1,0 @@
-.title Diode limiter and clamp waveform
-VIN in 0 SIN(0 5 100)
-R1 in out 1k
-D1 out 0 DCLAMP
-.model DCLAMP D (IS=1e-14 N=1.2 CJO=2p)
-.tran 20u 30m
-.end

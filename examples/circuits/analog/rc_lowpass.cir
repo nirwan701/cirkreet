@@ -1,8 +1,0 @@
-.title RC low-pass step and frequency response
-* A 1 V pulse drives a first-order RC low-pass network.
-VIN in 0 DC 0 PULSE(0 1 0 1u 1u 10m 20m) AC 1
-R1 in out 1k
-C1 out 0 10u
-.ac dec 40 0.1 10k
-.tran 100u 30m
-.end

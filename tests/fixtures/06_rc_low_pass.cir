@@ -1,8 +1,0 @@
-.title RC low-pass filter
-VIN in 0 DC 1 PULSE(0 1 5m 1u 1u 100m 200m) AC 1
-R1 in out 1k
-C1 out 0 10u
-.dc VIN 0 5 0.0625
-.ac dec 240 1 10k
-.tran 80u 80m
-.end
